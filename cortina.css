@@ -1,0 +1,123 @@
+/* ==========================================================
+   CORTINA DE BIENVENIDA — cortina.css
+   Estilos completos y autocontenidos para el efecto de
+   pantalla de carga + cortinas que se abren.
+   ========================================================== */
+
+/* --- Pantalla de carga unicolor (cubre el contenido mientras cargan las imágenes) --- */
+#load-overlay {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 10000; /* Lo más alto de todo */
+  background-color: #ffffff;
+  transition: opacity 0.8s ease-in-out, visibility 0.8s;
+}
+
+#load-overlay.hide {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* --- Animaciones de apertura de las cortinas --- */
+@keyframes open-left-window {
+  from {
+    transform: translateX(0);
+    background-position: 99.5% 50%, 99.5% 50%, 100% 50%;
+  }
+  to {
+    transform: translateX(-50vw);
+    background-position: 99.5% 50%, 99.5% 50%, calc(100% + 50vw) 50%;
+  }
+}
+
+@keyframes open-right-window {
+  from {
+    transform: translateX(0);
+    background-position: 0.5% 50%, 0.5% 50%, 0% 50%;
+  }
+  to {
+    transform: translateX(+50vw);
+    background-position: 0.5% 50%, 0.5% 50%, calc(0% - 50vw) 50%;
+  }
+}
+
+/* --- Contenedor principal de las cortinas --- */
+#start-overlay {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 9998;
+  overflow: hidden;
+  display: flex; /* Coloca las dos mitades lado a lado */
+}
+
+#start-overlay.open {
+  visibility: hidden;
+}
+
+/* --- Botón central (logo / imagen de apertura) --- */
+#start-overlay .open-button {
+  position: absolute;
+  height: 25vmin;
+  width: 25vmin;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  outline: none;
+  background: radial-gradient(#ffffff, #e2e2e2);
+  z-index: 9999;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+#start-overlay .open-button:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+#start-overlay.open .open-button {
+  display: none;
+}
+
+/* --- Cada mitad de la cortina (ventana) --- */
+#start-overlay .window {
+  height: 100%;
+  width: 50%;
+  background-repeat: no-repeat;
+  animation-duration: 2s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  transition: visibility 2s;
+}
+
+/* Cortina IZQUIERDA — usa 3 capas de imagen en blend mode */
+#start-overlay .left {
+  background: url(./img/tree_left_screen.jpg), url(./img/tree_left_multiply.jpg), url(./img/bg_left_blur.jpg);
+  background-position: 99.5% 50%, 99.5% 50%, 100% 50%;
+  background-size: cover;
+  background-blend-mode: screen, multiply, normal;
+}
+
+#start-overlay.open .left {
+  animation-name: open-left-window;
+}
+
+/* Cortina DERECHA — usa 3 capas de imagen en blend mode */
+#start-overlay .right {
+  background: url(./img/tree_right_screen.jpg), url(./img/tree_right_multiply.jpg), url(./img/bg_right_blur.jpg);
+  background-position: 0.5% 50%, 0.5% 50%, 0% 50%;
+  background-size: cover;
+  background-blend-mode: screen, multiply, normal;
+}
+
+#start-overlay.open .right {
+  animation-name: open-right-window;
+}

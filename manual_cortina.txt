@@ -1,0 +1,209 @@
+# Manual de la Cortina de Bienvenida
+### Guía para principiantes — Cómo personalizar las imágenes
+
+---
+
+> [!IMPORTANT]
+> Este manual asume que estás usando la carpeta **`cortina-template`** tal cual fue entregada. No cambies los nombres de los archivos `.js`, `.css` ni la estructura de carpetas, a menos que se indique explícitamente.
+
+---
+
+## ¿Qué hace la cortina?
+
+Al abrir tu página web, el visitante ve un **efecto visual de dos cortinas** que cubren toda la pantalla. En el centro aparece un **botón circular con tu logo**. Al hacer clic en el logo, las cortinas se abren hacia los lados (izquierda y derecha) con una animación suave, revelando el contenido de la página.
+
+El efecto funciona en tres momentos:
+
+| Momento | Qué ve el usuario |
+|---|---|
+| 1. La página empieza a cargar | Pantalla blanca sólida (evita que se vea el contenido cargando a medias) |
+| 2. La página terminó de cargar | Las cortinas con imágenes + el botón con tu logo |
+| 3. Haces clic en el logo | Las cortinas se abren y desaparecen, revelando la página |
+
+---
+
+## Estructura de archivos de la plantilla
+
+```
+cortina-template/
+│
+├── index.html             ← Plantilla de ejemplo de cómo usar la cortina
+├── cortina.css            ← Estilos del efecto (NO modificar)
+├── thanos.css             ← Estilos del efecto de desintegración (NO modificar)
+├── script.js              ← Lógica de la cortina (NO modificar)
+├── thanos.js              ← Lógica del efecto de desintegración (NO modificar)
+├── jquery.min.js          ← Librería requerida (NO modificar)
+├── html2canvas.min.js     ← Librería requerida (NO modificar)
+│
+└── img/                   ← ⭐ AQUÍ vas a poner TUS imágenes
+    ├── bg_left_blur.jpg
+    ├── bg_right_blur.jpg
+    ├── tree_left_screen.jpg
+    ├── tree_left_multiply.jpg
+    ├── tree_right_screen.jpg
+    └── tree_right_multiply.jpg
+```
+
+---
+
+## Las imágenes: qué son y para qué sirve cada una
+
+El efecto visual de las cortinas se logra superponiendo **3 imágenes por cada lado** (izquierdo y derecho), mezcladas con técnicas de color (*blend modes*). Esto crea profundidad y un efecto cinematográfico.
+
+> [!NOTE]
+> No necesitas entender cómo funciona la mezcla. Solo necesitas saber qué imagen va en cada archivo.
+
+### Imágenes de la cortina IZQUIERDA
+
+| Nombre de archivo | Qué contiene | Capa |
+|---|---|---|
+| `tree_left_screen.jpg` | La imagen principal del lado izquierdo (la que "se ve" más) | 1ª (encima) |
+| `tree_left_multiply.jpg` | Una copia de la imagen izquierda con más contraste/sombras | 2ª (en medio) |
+| `bg_left_blur.jpg` | El fondo difuminado del lado izquierdo | 3ª (debajo) |
+
+### Imágenes de la cortina DERECHA
+
+| Nombre de archivo | Qué contiene | Capa |
+|---|---|---|
+| `tree_right_screen.jpg` | La imagen principal del lado derecho | 1ª (encima) |
+| `tree_right_multiply.jpg` | Una copia de la imagen derecha con más contraste/sombras | 2ª (en medio) |
+| `bg_right_blur.jpg` | El fondo difuminado del lado derecho | 3ª (debajo) |
+
+---
+
+## Especificaciones exactas de las imágenes
+
+> [!CAUTION]
+> **Respetar estas dimensiones es obligatorio.** Si las imágenes tienen proporciones muy distintas, la cortina puede verse cortada o distorsionada.
+
+### Imágenes del elemento principal — las 4 imágenes `tree_*`
+
+| Propiedad | Valor |
+|---|---|
+| **Ancho** | 795 px |
+| **Alto** | 1920 px |
+| **Orientación** | Vertical (retrato) |
+| **Formato** | `.jpg` |
+| **Resolución** | 300 DPI (recomendado) |
+
+> **¿Por qué vertical?** La cortina cubre toda la altura de la pantalla. Una imagen vertical garantiza que no haya bordes vacíos en pantallas altas.
+
+### Imágenes de fondo difuminado — `bg_left_blur.jpg` y `bg_right_blur.jpg`
+
+| Propiedad | Valor |
+|---|---|
+| **Ancho** | 1024 px |
+| **Alto** | 1882 px |
+| **Orientación** | Vertical (retrato) |
+| **Formato** | `.jpg` |
+| **Resolución** | 300 DPI (recomendado) |
+
+---
+
+## Cómo reemplazar las imágenes paso a paso
+
+### Opción A — Reemplazar las imágenes manteniendo el estilo actual
+
+Si quieres cambiar el motivo visual (por ejemplo, poner flores en lugar de árboles), sigue estos pasos:
+
+1. **Consigue o diseña tu imagen base** (el elemento que aparecerá en la cortina).
+   Debe ser una imagen **vertical**, idealmente con fondo transparente o difuminado en los bordes.
+
+2. **Crea los 4 archivos de elemento principal**:
+   - Exporta tu imagen con fondo blanco como **`tree_left_screen.jpg`** (795 × 1920 px).
+   - Exporta una versión más oscura/contrastada como **`tree_left_multiply.jpg`** (795 × 1920 px).
+   - Haz lo mismo con el lado derecho: **`tree_right_screen.jpg`** y **`tree_right_multiply.jpg`**.
+
+   > **Truco con Photoshop o GIMP:** Duplica tu capa, aplica el modo de fusión "Multiplicar" (*Multiply*) al duplicado. Eso te da la versión para `_multiply`.
+
+3. **Crea los 2 fondos difuminados**:
+   - Toma tu imagen de fondo y aplícale un desenfoque gaussiano fuerte.
+   - Córtala por la mitad: la mitad izquierda es **`bg_left_blur.jpg`** (1024 × 1882 px) y la derecha es **`bg_right_blur.jpg`** (1024 × 1882 px).
+
+4. **Reemplaza los archivos** en la carpeta `img/` con los mismos nombres exactos.
+
+5. **Abre `index.html`** en el navegador para verificar que se ve correctamente.
+
+---
+
+### Opción B — Fondo sólido simple (sin efecto de mezcla)
+
+Si no quieres usar el efecto de 3 capas y prefieres colores sólidos o un diseño más simple, consulta con el desarrollador para ajustar el CSS. No intentes cambiar `cortina.css` sin orientación.
+
+---
+
+## Cómo cambiar el logo del botón central
+
+El botón circular que aparece en el centro de las cortinas muestra tu logo. Para cambiarlo:
+
+1. Abre el archivo **`index.html`** con un editor de texto (Notepad, VS Code, etc.).
+2. Busca esta línea:
+   ```html
+   <img src="AQUI_TU_LOGO.png" alt="Abrir" style="width: 80%; height: 80%; object-fit: contain;">
+   ```
+3. Cambia `AQUI_TU_LOGO.png` por la ruta a tu imagen de logo. Ejemplo:
+   ```html
+   <img src="assets/img/logo.png" alt="Mi Logo" style="width: 80%; height: 80%; object-fit: contain;">
+   ```
+4. Guarda y recarga la página.
+
+> [!TIP]
+> El logo se recorta en un círculo automáticamente. Funciona mejor con imágenes cuadradas o con fondo transparente (`.png`).
+
+---
+
+## Cómo integrar la cortina en un sitio ya existente
+
+### En el `<head>` de tu HTML:
+```html
+<link href="cortina.css" rel="stylesheet" />
+<link href="thanos.css" rel="stylesheet" />
+```
+
+### Al inicio del `<body>` (primeras líneas, antes de todo lo demás):
+```html
+<!-- Pantalla de carga -->
+<div id="load-overlay"></div>
+
+<!-- Las cortinas -->
+<div id="start-overlay">
+    <button class="open-button" onclick="openStartOverlay()">
+        <img src="TU_LOGO.png" alt="Abrir" style="width: 80%; height: 80%; object-fit: contain;">
+    </button>
+    <div class="window left"></div>
+    <div class="window right"></div>
+</div>
+
+<!-- Contenedor del efecto (no visible, requerido) -->
+<div thanos-effect></div>
+```
+
+### Al final del `<body>` (antes de `</body>`), **en este orden exacto**:
+```html
+<script src="jquery.min.js"></script>
+<script src="html2canvas.min.js"></script>
+<script src="thanos.js"></script>
+<script src="script.js"></script>
+```
+
+> [!WARNING]
+> El orden de los scripts importa. `jquery.min.js` **siempre** debe ir primero. Si lo cambias de lugar, el efecto dejará de funcionar.
+
+---
+
+## Preguntas frecuentes
+
+**¿Las imágenes de la carpeta `img/` se ven directamente en la página?**
+No directamente. Solo se usan como fondos de las cortinas. El visitante las verá mientras decide hacer clic para entrar.
+
+**¿Qué pasa si no tengo una imagen para `_multiply`?**
+Puedes usar la misma imagen que `_screen` como reemplazo temporal, aunque el efecto de profundidad será menor.
+
+**¿Puedo cambiar el color de la pantalla de carga blanca?**
+Sí. En `cortina.css`, busca `background-color: #ffffff;` dentro de `#load-overlay` y cambia el color hexadecimal.
+
+**¿El efecto funciona en celulares?**
+Sí, está diseñado para ser responsivo. Las imágenes verticales garantizan buena cobertura en pantallas altas de móvil.
+
+**¿Puedo quitar el efecto de desintegración del logo?**
+El efecto solo se activa si algún elemento tiene el atributo `thanos-dissolve`. Si no se lo pones a nada, los archivos `thanos.js` y `thanos.css` no harán nada visible y puedes dejarlos.

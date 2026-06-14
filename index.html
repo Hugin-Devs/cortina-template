@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mi Sitio Web</title>
+
+    <!--
+      PASO 1: Enlaza aquí tus estilos propios (Bootstrap, fuentes, etc.)
+    -->
+
+    <!-- Cortina: estilos propios del efecto -->
+    <link href="cortina.css" rel="stylesheet" />
+    <link href="thanos.css" rel="stylesheet" />
+</head>
+
+<body>
+
+    <!--
+    ══════════════════════════════════════════════
+    BLOQUE DE LA CORTINA — NO MOVER NI MODIFICAR
+    la estructura de estos tres bloques.
+    ══════════════════════════════════════════════
+    -->
+
+    <!-- 1. Pantalla de carga: evita que se vea el contenido mientras cargan las imágenes -->
+    <div id="load-overlay"></div>
+
+    <!-- 2. Las cortinas con el botón central -->
+    <div id="start-overlay">
+        <!-- Cambia la imagen del src para poner tu logo o ícono -->
+        <button class="open-button" onclick="openStartOverlay()">
+            <img src="img/logo_ucv.svg" alt="Abrir" style="width: 80%; height: 80%; object-fit: contain;">
+        </button>
+        <div class="window left"></div>
+        <div class="window right"></div>
+    </div>
+
+    <!-- 3. Contenedor del efecto Thanos (requerido por thanos.js) -->
+    <div thanos-effect></div>
+
+    <!--
+    ══════════════════════════════════════════════
+    FIN DEL BLOQUE DE LA CORTINA
+    ══════════════════════════════════════════════
+    -->
+
+
+    <!-- ═══════════════════════════════════════════════════════
+         AQUÍ VA EL CONTENIDO NORMAL DE TU PÁGINA
+         (nav, secciones, footer, etc.)
+         ═══════════════════════════════════════════════════════ -->
+    <style>
+        body {
+            /* Ruta de la imagen de fondo */
+            background-image: url('img/logo_ucv.svg'); 
+            
+            /* Centra la imagen horizontal y verticalmente */
+            background-position: center; 
+            
+            /* Evita que la imagen se repita como mosaico */
+            background-repeat: no-repeat; 
+            
+            /* Escala la imagen para cubrir toda la pantalla sin deformarse */
+            background-size: cover; 
+            
+            /* Mantiene el fondo fijo al hacer scroll */
+            background-attachment: fixed; 
+            
+            /* Elimina los márgenes por defecto del navegador */
+            margin: 0; 
+            
+            /* Asegura que el cuerpo ocupe toda la altura visible */
+            height: 100%; 
+        }
+    </style>
+    <main>
+        <h1>Contenido de ejemplo</h1>
+        <p>Reemplaza esto con el contenido real de tu sitio.</p>
+    </main>
+
+
+    <!--
+    ══════════════════════════════════════════════
+    SCRIPTS — Deben ir AL FINAL del body, en este orden exacto
+    ══════════════════════════════════════════════
+    -->
+    <script src="jquery.min.js"></script>
+    <script src="html2canvas.min.js"></script>
+    <script src="thanos.js"></script>
+    <script src="script.js"></script>
+
+    <!--
+      PASO 2: Enlaza aquí tus scripts propios (Bootstrap JS, etc.)
+    -->
+
+</body>
+</html>
