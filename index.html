@@ -8,7 +8,35 @@
     <!--
       PASO 1: Enlaza aquí tus estilos propios (Bootstrap, fuentes, etc.)
     -->
-
+      <!-- 
+            ESTE ES EL CODIGO PARA CAMBIAR LA IMAGEN DE FONDO. 
+            Es practicamente igual que con el boton, solo cambia como se va a llamar
+            y manten el directorio
+      -->
+    <style>
+        body {
+            /* Ruta de la imagen de fondo */
+            background-image: url('img/logo_ucv.svg'); 
+            
+            /* Centra la imagen horizontal y verticalmente */
+            background-position: center; 
+            
+            /* Evita que la imagen se repita como mosaico */
+            background-repeat: no-repeat; 
+            
+            /* Escala la imagen para cubrir toda la pantalla sin deformarse */
+            background-size: cover; 
+            
+            /* Mantiene el fondo fijo al hacer scroll */
+            background-attachment: fixed; 
+            
+            /* Elimina los márgenes por defecto del navegador */
+            margin: 0; 
+            
+            /* Asegura que el cuerpo ocupe toda la altura visible */
+            height: 100vh; 
+        }
+    </style>
     <!-- Cortina: estilos propios del efecto -->
     <link href="cortina.css" rel="stylesheet" />
     <link href="thanos.css" rel="stylesheet" />
@@ -50,30 +78,7 @@
          AQUÍ VA EL CONTENIDO NORMAL DE TU PÁGINA
          (nav, secciones, footer, etc.)
          ═══════════════════════════════════════════════════════ -->
-    <style>
-        body {
-            /* Ruta de la imagen de fondo */
-            background-image: url('img/logo_ucv.svg'); 
-            
-            /* Centra la imagen horizontal y verticalmente */
-            background-position: center; 
-            
-            /* Evita que la imagen se repita como mosaico */
-            background-repeat: no-repeat; 
-            
-            /* Escala la imagen para cubrir toda la pantalla sin deformarse */
-            background-size: cover; 
-            
-            /* Mantiene el fondo fijo al hacer scroll */
-            background-attachment: fixed; 
-            
-            /* Elimina los márgenes por defecto del navegador */
-            margin: 0; 
-            
-            /* Asegura que el cuerpo ocupe toda la altura visible */
-            height: 100%; 
-        }
-    </style>
+
     <main>
         <h1>Contenido de ejemplo</h1>
         <p>Reemplaza esto con el contenido real de tu sitio.</p>
